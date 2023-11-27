@@ -6,6 +6,21 @@ on:
       - main
 
 jobs:
+  send-notification-started:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Telegram Notification
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: "${{ secrets.TELEGRAM_GROUP_DEPLOYMENTS }}"
+        run: |
+          curl -X POST \
+            https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
+            -d chat_id=${TELEGRAM_CHAT_ID} \
+            -d text="🚀 <b>Kubernetes Engine CI-CD Template</b> Deployment has started!
+            Your deployment process is in progress. 🛠️🔍" \
+            -d parse_mode=HTML
+
   deploy:
     runs-on: ubuntu-latest
 
@@ -62,7 +77,7 @@ jobs:
           curl -X POST \
             https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
             -d chat_id=${TELEGRAM_CHAT_ID} \
-            -d text="🎉 <b>Cloud Run CI/CD Template</b> Deployment was successful!
+            -d text="🎉 <b>Kubernetes Engine CI-CD Template</b> Deployment was successful!
             Your amazing tool is now available for everyone! 🚀✨" \
             -d parse_mode=HTML
 
@@ -79,7 +94,7 @@ jobs:
           curl -X POST \
             https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage \
             -d chat_id=${TELEGRAM_CHAT_ID} \
-            -d text="❌ Oh no! <b>Cloud Run CI/CD Template</b> Deployment failed!
+            -d text="❌ Oh no! <b>Kubernetes Engine CI-CD Template</b> Deployment failed!
             There might be something wrong with the process. 
             Please check it out! 🛠️🔍" \
             -d parse_mode=HTML
