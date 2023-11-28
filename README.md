@@ -2,6 +2,8 @@
 
 This repository contains code for a basic Node.js server setup along with Kubernetes deployment configurations and a CI/CD workflow.
 
+![](github-action.jpg)
+
 ## Description
 
 ### `index.js`
